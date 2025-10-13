@@ -1,8 +1,11 @@
-
-
-
+from datetime import date
+today = date.today()
 def start():
-    choice = input("\nSelect option: \n 1. Read files\n 2. Write files\n 3. Search\n 4. Modify\n 5. Exit\n")
+    with open("studentfile.txt","a"):
+        pass
+    with open("summaryfile.txt","a"):
+        pass
+    choice = input("\nSelect option: \n 1. Read files\n 2. Write files\n 3. Search\n 4. Modify\n 5. Summary\n 6. Exit\n")
     if choice == "1":
         readfile()
     elif choice == "2":
@@ -12,14 +15,14 @@ def start():
     elif choice == "4":
         modifyfiles()
     elif choice == "5":
+        summaryfiles()
+    elif choice == "6":
         exit("Program Terminated")
     else:
         print("Invalid choice")
 
 
 def readfile():
-    with open("studentfile.txt","a"):
-        pass
 
     with open("studentfile.txt","r") as s:
         for line in s:
@@ -89,6 +92,25 @@ def modifygrade():
         print("Grade updated successfully.")
 
     start()
+
+def summaryfiles():
+    data = []
+    with open("studentfile.txt", "r") as s:
+        for line in s:
+            parts = [x.strip() for x in line.strip().split(",")]
+            if len(parts) == 2:
+                data.append(parts)  # only store valid entries
+
+    if len(data) == 0:
+        print("No data found.")
+        return
+
+    total_grades = sum(float(parts[1]) for parts in data)
+    average = total_grades / len(data)
+
+    print(f"Average grade of {len(data)} students is {average}")
+    with open("summaryfile.txt", "a") as summary:
+        s.write(f"Average grade of {len(data)} students is {average}, current date: {today}\n")
 
 
 start()
