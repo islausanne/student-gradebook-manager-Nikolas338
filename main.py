@@ -110,7 +110,7 @@ def summaryfiles():
 
     print(f"Average grade of {len(data)} students is {average}")
     with open("summaryfile.txt", "a") as summary:
-        s.write(f"Average grade of {len(data)} students is {average}, current date: {today}\n")
+        s.write(f"Average grade of {len(data)} students is {average}, current date:{today}\n")
 
 
 start()
